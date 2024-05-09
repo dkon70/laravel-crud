@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use App\Models\Spot;
+use Illuminate\Support\Facades\Validator;
 
 class SpotController extends Controller
 {
@@ -22,7 +23,28 @@ class SpotController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'bail|required|unique:spots',
+            'latitude' => 'bail|required|numeric',
+            'longitude' => 'bail|required|numeric'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+        if (!is_float($request->latitude)) {
+            return response()->json(['errors' => ['latitude' => ['latitude must be float']]], 422);
+        }
+        if (!is_float($request->longitude)) {
+            return response()->json(['errors' => ['longitude' => ['longitude must be float']]], 422);
+        }
+
+        $validated = Spot::create([
+            'name' => $request->name,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude
+        ]);
+
+        return response()->json([$validated], 201);
     }
 
     /**

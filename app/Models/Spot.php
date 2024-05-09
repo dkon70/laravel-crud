@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Spot extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'name',
+        'latitude',
+        'longitude'
+    ];
 }

@@ -12,4 +12,9 @@ class User extends Model
     protected $casts = [
         'favorites' => 'array'
     ];
+
+    protected $fillable = [
+        'login',
+        'password'
+    ];
 }
