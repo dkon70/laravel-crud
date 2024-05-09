@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('login');
             $table->string('password');
             $table->json('favorites')->nullable();
-            // $table->foreign('spot_id')->references('id')->on('spots');
             $table->timestamps();
         });
     }

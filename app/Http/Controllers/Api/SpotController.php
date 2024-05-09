@@ -3,19 +3,18 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use App\Http\Resources\UserResource;
+use App\Models\Spot;
 
-class UserController extends Controller
+class SpotController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): AnonymousResourceCollection
+    public function index(): Collection
     {
-        return UserResource::collection(User::all());
+        return Spot::all();
     }
 
     /**
@@ -31,7 +30,7 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        return User::select('favorites')->find($id);
+        //
     }
 
     /**
