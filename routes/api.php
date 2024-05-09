@@ -13,3 +13,7 @@ Route::apiResources([
     'users' => UserController::class,
     'spots' => SpotController::class,
 ]);
+
+Route::any('{path}', function () {
+   return response()->json(['errors' => ["route doesn't exist"]], 404);
+});
