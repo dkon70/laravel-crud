@@ -9,12 +9,13 @@ class User extends Model
 {
     use HasFactory;
 
-    protected $casts = [
-        'favorites' => 'array'
-    ];
-
     protected $fillable = [
         'login',
         'password'
     ];
+
+    public function getFavoritesAttribute($value)
+    {
+        return $value ?: [];
+    }
 }

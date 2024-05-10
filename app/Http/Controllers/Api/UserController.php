@@ -36,7 +36,7 @@ class UserController extends Controller
 
         $user = User::create([
             'login' => $request->login,
-            'password' => Hash::make($request->password, ['rounds' => env('BCRYPT_ROUNDS')])
+            'password' => Hash::make($request->password, ['rounds' => env('BCRYPT_ROUNDS')]),
         ]);
 
         return response()->json([new UserResource($user)], 201);
