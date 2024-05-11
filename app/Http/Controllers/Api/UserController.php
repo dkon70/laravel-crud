@@ -86,7 +86,7 @@ class UserController extends Controller
         $user->favorites = $favoritesArray;
         $user->save();
 
-        return response()->json($user, 200);
+        return response()->json(new UserResource($user), 200);
     }
 
     /**

@@ -4,7 +4,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\SpotController;
-use App\Http\Controllers\Api\FavoritesController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
