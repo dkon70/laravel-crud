@@ -55,7 +55,38 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'spot' => 'bail|required|exists:spots,name',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+        $user = User::find($id);
+        if (!$user) {
+            return response()->json(['error' => ['User not found']], 404);
+        }
+
+        $favoritesArray = $user->favorites;
+        if ($favoritesArray[0] === null) {
+            $favoritesArray = [];
+        }
+
+        $spot = $request->input('spot');
+        if (!in_array($spot, $favoritesArray) && count($favoritesArray) < 3) {
+            $favoritesArray[] = $spot;
+        } else {
+            if (in_array($spot, $favoritesArray)) {
+                return response()->json(['error' => ['Spot is already in favorites']], 422);
+            }
+            if (count($favoritesArray) === 3) {
+                return response()->json(['error' => ['You can add only 3 spots in favorites']], 422);
+            }
+        }
+
+        $user->favorites = $favoritesArray;
+        $user->save();
+
+        return response()->json($user, 200);
     }
 
     /**
