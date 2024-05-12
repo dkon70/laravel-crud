@@ -67,7 +67,7 @@ class UserController extends Controller
         }
 
         $favoritesArray = $user->favorites;
-        if ($favoritesArray[0] === null) {
+        if ($favoritesArray === null) {
             $favoritesArray = [];
         }
 
